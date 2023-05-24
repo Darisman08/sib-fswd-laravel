@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LandingController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('landing');
+// });
 
-Route::resource('/users', \App\Http\Controllers\UsersController::class);
+Route::get('/users', [UsersController::class, 'index']);
+Route::get('/', [LandingController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
