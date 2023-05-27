@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengguna;
+use App\Models\PenggunaGrup;
 use Illuminate\Http\Request;
 
 class PenggunaController extends Controller
@@ -11,9 +13,10 @@ class PenggunaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function grup()
     {
-        //
+        $grup = PenggunaGrup::all();
+        return view('pengguna.grpengguna', compact('grup'));
     }
 
     /**
@@ -21,9 +24,10 @@ class PenggunaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function daftar()
     {
-        //
+        $pengguna = Pengguna::all();
+        return view('pengguna.dfpengguna', compact('pengguna'));
     }
 
     /**

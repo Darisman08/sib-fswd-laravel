@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produk;
+use App\Models\ProdukKategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProdukController extends Controller
 {
@@ -13,11 +16,14 @@ class ProdukController extends Controller
      */
     public function kategori()
     {
-        return view('produk.kategori');
+        $kat_produk = ProdukKategori::all();
+        return view('produk.kategori', compact('kat_produk'));
     }
     public function daftar()
     {
-        return view('produk.daftar');
+        $produk = Produk::all();
+        /* dd($produk); */
+        return view('produk.daftar', compact('produk'));
     }
 
     /**
@@ -25,9 +31,9 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create_produk()
     {
-        //
+        return view('produk.produk_create');
     }
 
     /**
@@ -36,9 +42,15 @@ class ProdukController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store_produk(Request $request)
     {
-        //
+        $produk = Produk::create([
+            'nama' => $request->name,
+            'kategori_id' => $request->kategori,
+            'deskripsi' => $request->deskripsi,
+            'harga' => $request->harga
+        ]);
+        return redirect('/dfproduk');
     }
 
     /**
@@ -58,9 +70,10 @@ class ProdukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit_produk($id)
     {
-        //
+        $produk = Produk::where('id',$id)->first();
+        return view('produk.produk_edit', compact('produk'));
     }
 
     /**
@@ -70,9 +83,15 @@ class ProdukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update_produk(Request $request)
     {
-        //
+        $produk = Produk::find($request->id)->update([
+            'nama' => $request->nama,
+            'kategori_id' => $request->kategori,
+            'deskripsi' => $request->deskripsi,
+            'harga' => $request->harga
+        ]);
+        return redirect('/dfproduk');
     }
 
     /**
@@ -81,8 +100,9 @@ class ProdukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function del_produk($id)
     {
-        //
+        $produk = Produk::find($id)->delete();
+        return redirect('/dfproduk');
     }
 }

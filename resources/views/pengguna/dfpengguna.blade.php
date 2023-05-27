@@ -1,11 +1,11 @@
 @extends('layout')
 
 @section('title')
-    Kategori Produk
+    Daftar Pengguna
 @endsection
 @section('judul')
-    Data Kategori Produk
-    <a href="/dfproduk-create" class="btn btn-primary btn-sm float-end m-1">Tambah Kategori</a>
+    Data Daftar Penggguna
+    <a href="/dfproduk-create" class="btn btn-primary btn-sm float-end m-1">Tambah Pengguna</a>
 @endsection
 @section('content')
     <table class="table table-striped">
@@ -13,11 +13,12 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Aksi</th>
-                <th scope="col">Nama Kategori</th>
+                <th scope="col">Nama Pengguna</th>
+                <th scope="col">Email</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($kat_produk as $p)
+            @foreach ($pengguna as $p)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}.</th>
                     <td>
@@ -28,6 +29,7 @@
                         </form>
                     </td>
                     <td>{{ $p->nama }}</td>
+                    <td>{{ $p->email }}</td>
                 </tr>
             @endforeach
         </tbody>
