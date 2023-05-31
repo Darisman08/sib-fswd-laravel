@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengguna;
 use App\Models\PenggunaGrup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PenggunaController extends Controller
 {
@@ -26,7 +27,10 @@ class PenggunaController extends Controller
      */
     public function daftar()
     {
-        $pengguna = Pengguna::all();
+        $pengguna = DB::table('users')
+        ->join('grup','users.grup_id','=','grup.id')
+        ->select('users.id','users.nama as nama','users.email','grup.nama as gnama')
+        ->get();
         return view('pengguna.dfpengguna', compact('pengguna'));
     }
 
