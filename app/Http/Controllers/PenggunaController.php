@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengguna;
 use App\Models\PenggunaGrup;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class PenggunaController extends Controller
 {
@@ -34,15 +36,25 @@ class PenggunaController extends Controller
         return view('pengguna.dfpengguna', compact('pengguna'));
     }
 
+    public function create_pengguna()
+    {        
+        return view('/pengguna.pengguna_create');
+    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store_pengguna(Request $request)
     {
-        //
+        User::create([
+            'nama' => $request->name,
+            'grup_id' => $request->grup_id,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+        return redirect('/dfpengguna')->with('success','Data Berhasil dibuat!');
     }
 
     /**

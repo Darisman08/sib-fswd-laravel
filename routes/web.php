@@ -43,10 +43,16 @@ Route::post('/kategori-store', [ProdukController::class, 'store_kategori']);
 Route::get('/kategori-edit-{id}', [ProdukController::class, 'edit_kategori']);
 Route::put('/kategori-update', [ProdukController::class, 'update_kategori']);
 Route::get('/kategori-del-{id}', [ProdukController::class, 'del_kategori']);
+
 Route::get('/grpengguna', [PenggunaController::class, 'grup']);
 Route::get('/dfpengguna', [PenggunaController::class, 'daftar']);
+Route::get('/dfpengguna-create', [PenggunaController::class, 'create_pengguna']);
+Route::post('/dfpengguna-store', [PenggunaController::class, 'store_pengguna']);
+
 
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login-proses', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout']);
+
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);

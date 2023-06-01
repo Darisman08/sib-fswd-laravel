@@ -31,7 +31,7 @@
                 <textarea type="text" id="deskripsi" name="deskripsi" class="form-control" required></textarea>
             </div>
             <div class="col-12">
-                <button type="submit" id="adduser" name="adduser" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
 
         </form>

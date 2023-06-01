@@ -17,7 +17,11 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
+                                        @auth
+                                        @if (auth()->user()->grup_id == 1)
                                         <th scope="col">Aksi</th>
+                                        @endif
+                                        @endauth
                                         <th scope="col">Nama Pengguna</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Grup</th>
@@ -27,15 +31,19 @@
                                     @foreach ($pengguna as $p)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}.</th>
+                                            @auth
+                                            @if (auth()->user()->grup_id == 1)
                                             <td>
-                                                <a href="/dfproduk-create" class="btn btn-primary btn-sm bi bi-plus-square" ></a>
-                                                <a href="/dfproduk-edit-{{ $p->id }}"
+                                                <a href="/dfpengguna-create" class="btn btn-primary btn-sm bi bi-plus-square" ></a>
+                                                <a href="/dfpengguna-edit-{{ $p->id }}"
                                                     class="btn btn-success btn-sm bi bi-pencil-square"></a>
-                                                <form action="/dfproduk-del-{{ $p->id }}" class="d-inline">
+                                                <form action="/dfpengguna-del-{{ $p->id }}" class="d-inline">
                                                     <button type="submit" id="deluser" name="deluser" value=""
                                                         class="btn btn-danger btn-sm bi bi-trash"></button>
                                                 </form>
                                             </td>
+                                            @endif
+                                            @endauth
                                             <td>{{ $p->nama }}</td>
                                             <td>{{ $p->email }}</td>
                                             <td>{{ $p->gnama }}</td>

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
-        /**
+    /**
      * Handle an authentication attempt.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -32,5 +32,15 @@ class LoginController extends Controller
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

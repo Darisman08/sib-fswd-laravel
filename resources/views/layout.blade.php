@@ -43,23 +43,58 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto {{request()->url('/')==url('/')?'active':''}}" href="{{ url('/') }}">Home</a></li>
-                    {{-- @auth         --}}
-                    <li><a class="nav-link scrollto {{request()->url('/dashboard')==url('/dashboard')?'active':''}}" href="{{ url('/dashboard') }}">Dashboard</a></li>
-                    <li class="dropdown"><a class="{{request()->url('/dfproduk') == url('/dfproduk')?'active':''}}" href="#"><span>Produk</span> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href="{{ url('/dfproduk') }}">Daftar Produk</a></li>
-                            <li><a href="{{ url('/kategori') }}">Kategori Produk</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown"><a class="{{request()->url('/dfpengguna') == url('/dfpengguna')?'active':''}}" href="#"><span>Pengguna</span> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href="{{ url('/dfpengguna') }}">Daftar Pengguna</a></li>
+                    <li><a class="nav-link scrollto {{ request()->url('/') == url('/') ? 'active' : '' }}"
+                            href="{{ url('/') }}">Home</a></li>
+                    @auth
+
+                        <li><a class="nav-link scrollto {{ request()->url('/dashboard') == url('/dashboard') ? 'active' : '' }}"
+                                href="{{ url('/dashboard') }}">Dashboard</a></li>
+                        <li class="dropdown"><a
+                                class="{{ request()->url('/dfproduk') == url('/dfproduk') ? 'active' : '' }}"
+                                href="#"><span>Produk</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="{{ url('/dfproduk') }}">Daftar Produk</a></li>
+                    @endauth
+                    @auth
+                                @if (auth()->user()->grup_id == 1)
+                                    <li><a href="{{ url('/kategori') }}">Kategori Produk</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endauth
+                        
+                    @auth
+                        @if (auth()->user()->grup_id == 1 || auth()->user()->grup_id == 2)
+                            <li class="dropdown"><a
+                                    class="{{ request()->url('/dfpengguna') == url('/dfpengguna') ? 'active' : '' }}"
+                                    href="#"><span>Pengguna</span> <i class="bi bi-chevron-down"></i></a>
+                                <ul>
+                                    <li><a href="{{ url('/dfpengguna') }}">Daftar Pengguna</a></li>
+                        @endif
+                    @endauth
+                    @auth
+                        @if (auth()->user()->grup_id == 1)
                             <li><a href="{{ url('/grpengguna') }}">Kategori Pengguna</a></li>
-                        </ul>
+                    </ul>
                     </li>
-                    {{-- @endauth --}}
-                    <li><a class="nav-link scrollto {{request()->url('/login') == url('/login')?'active':''}}" href="/login">Login</a></li>
+                        @elseif (auth()->user()->grup_id == 2)
+                    </ul>
+                    </li>
+                        @endif
+                    @endauth
+                    @auth
+                    <li><a class="nav-link scrollto " href="">{{ auth()->user()->nama }}</a></li>
+                    <li><a href="{{ url('/logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                             class="nav-link scrollto">Logout</a></li>
+                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                    @else
+                    <li><a class="nav-link scrollto {{ request()->url('/login') == url('/login') ? 'active' : '' }}"
+                            href="/login">Login</a></li>
+
+                    @endauth
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->

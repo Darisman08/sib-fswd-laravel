@@ -18,7 +18,7 @@ class RegisterController extends Controller
             'nama' => $request->nama,
             'grup_id' => $request->grup_id,
             'email' => $request->email,
-            'password' => Hash::make($request->newPassword)
+            'password' => Hash::make($request->password)
         ]);
         return redirect('/')->with('success','Data Berhasil dibuat!');
     }

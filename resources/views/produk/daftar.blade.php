@@ -10,7 +10,7 @@
                 <div class="col-md-auto">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data Daftar Pengguna
+                            <h4>Data Daftar Produk
                             </h4>
                         </div>
                         <div class="card-body">
@@ -18,7 +18,11 @@
                                 <thead>
                                     <tr> 
                                         <th>#</th>
+                                        @auth
+                                        @if (auth()->user()->grup_id == 1)
                                         <th>Aksi</th>
+                                        @endif
+                                        @endauth
                                         <th>Nama Produk</th>
                                         <th>Harga</th>
                                         <th  class="w-50" >Deskripsi</th>
@@ -28,6 +32,8 @@
                                     @foreach ($produk as $p)
                                         <tr>
                                             <th>{{ $loop->iteration }}.</th>
+                                            @auth
+                                            @if (auth()->user()->grup_id == 1)
                                             <td>
                                                 <a href="/pengguna-create" class="btn btn-primary btn-sm bi bi-plus-square" ></a>
                                                 <a href="/pengguna-edit-{{ $p->id }}"
@@ -37,6 +43,8 @@
                                                         class="btn btn-danger btn-sm bi bi-trash"></button>
                                                 </form>
                                             </td>
+                                            @endif
+                                            @endauth
                                             <td>{{ $p->nama }}</td>
                                             <td>{{ $p->harga }}</td>
                                             <td>{{ $p->deskripsi }}</td>
